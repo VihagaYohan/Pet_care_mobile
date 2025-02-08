@@ -51,7 +51,7 @@ const RegisterScreen = () => {
 
           <View style={styles.signInContainer}>
             <Text style={{fontFamily:"Poppins-Regular", fontSize: 13, color: COLORS.white}}>Already have an account?</Text>
-            <AppTextButton label='Sign In' onPress={() => navigation.navigate(Routes.Home)}
+            <AppTextButton label='Sign In' onPress={() => navigation.navigate(Routes.Bottom)}
               textStyle={styles.signInText}/>
           </View>
         </View>

@@ -3,6 +3,8 @@ const Routes = {
   Register: 'Register',
   Login: 'Login',
   Home: 'Home',
+  Search:"Search",
+  Bottom: "Bottom"
 };
 
 Object.freeze(Routes);

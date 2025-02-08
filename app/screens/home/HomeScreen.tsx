@@ -1,12 +1,21 @@
-import { View, ScrollView, StyleSheet, Text, Image, TouchableOpacity } from 'react-native'
-import React, {useEffect} from 'react'
+import { View, ScrollView, StyleSheet, Modal, Image, TouchableOpacity } from 'react-native'
+import React, {useEffect, useLayoutEffect, useState} from 'react'
 import LinearGradient from 'react-native-linear-gradient'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { RouteProp } from '@react-navigation/native'
+import {MagnifyingGlassIcon} from 'react-native-heroicons/outline'
 
 // components
-import {AppContainer, AppText} from '../../components'
+import {AppContainer, AppText, AppHeaderBackground, AppGradientBackground} from '../../components'
 
 // constants
 import { COLORS, CONSTANTS } from '../../constants'
+
+// navigation
+import {Routes} from '../../navigation'
+
+// widgets
+import {SearchWidget} from '../../widgets'
 
 interface servicesTypes {
   imageUrl: any,
@@ -52,7 +61,32 @@ const SERVICES: servicesTypes[] = [
   },
 ]
 
-const HomeScreen = () => {
+const HomeScreen = ({navigation, route}: {
+  navigation: NativeStackNavigationProp<any,any>,
+  route: RouteProp<any,any>
+}) => {
+
+  const [visible, setVisible] = useState<boolean>(false)
+
+  // navigation settings
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerShown: true,
+      headerTitle:"",
+      headerRight:(props) => {
+        return (
+          <TouchableOpacity onPress={() => setVisible(true)}>
+            <MagnifyingGlassIcon color={COLORS.primary} size={30} style={{marginRight: CONSTANTS.spacing.medium}}/>
+          </TouchableOpacity>
+        )
+      },
+      headerBackground() {
+        return (
+          <AppHeaderBackground/>
+        )
+      },
+    })
+  })
 
   return (
     <AppContainer>
@@ -80,6 +114,10 @@ const HomeScreen = () => {
           </View>
           
         </ScrollView>
+
+         <SearchWidget
+         visible={visible}
+         onClose={() => setVisible(false)}/>
       </LinearGradient>
     </AppContainer>
   )
